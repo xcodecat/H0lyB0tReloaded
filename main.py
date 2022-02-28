@@ -1,4 +1,5 @@
 import os
+import aiohttp
 
 import dotenv
 import hikari
@@ -30,6 +31,7 @@ if __name__ == "__main__":
     if os.name != "nt":
         import uvloop
         uvloop.install()
+
 
     bot.load_extensions_from("./extensions/", must_exist=True)
     bot.run()
