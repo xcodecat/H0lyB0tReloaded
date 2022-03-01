@@ -25,7 +25,7 @@ if __name__ == "__main__":
 async def change_presence():
     number = random.choice([1, 2, 3])
     if number == 1:
-        await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="https://dsc.gg/holybutcrazy", type=hikari.ActivityType.LISTENING))
+        await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="Cheetah#7653", type=hikari.ActivityType.LISTENING))
     if number == 2:
         await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="Cheetah's Cat#4171 beim Programmieren zu", type=hikari.ActivityType.WATCHING))
 

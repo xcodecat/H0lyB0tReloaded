@@ -10,7 +10,7 @@ utility = lightbulb.Plugin("Utility")
 @lightbulb.command("userinfo", "Get info on a server member.")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
 async def userinfo(ctx: lightbulb.Context) -> None:
-    target = ctx.get_guild().get_member(ctx.options.target) or ctx.user
+    target = ctx.get_guild().get_member(ctx.options.target or ctx.user)
     if not target:
         await ctx.respond("That user is not in the server.")
         return
@@ -20,7 +20,7 @@ async def userinfo(ctx: lightbulb.Context) -> None:
     embed = (hikari.Embed(
             title=f"User Info - {target.display_name}",
             description=f"ID: `{target.id}`",
-            colour=target.get_top_role().color if target.get_top_role() else 0x6d6d6d,
+            colour=target.get_top_role().color if target.get_top_role() else 0xB33771,
             timestamp=datetime.now().astimezone(),)
         .set_footer(text=f"Requested by {ctx.member.display_name} • {ctx.author.id}", icon=ctx.member.avatar_url or ctx.member.default_avatar_url,)
         .set_thumbnail(target.avatar_url or target.default_avatar_url)
@@ -31,10 +31,21 @@ async def userinfo(ctx: lightbulb.Context) -> None:
     await ctx.respond(embed)
 
 @utility.command
+@lightbulb.option("target", "Get the avatar of this user.", hikari.User, required=False)
+@lightbulb.command("avatar", "Get the avatar of this user.")
+@lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
+async def avatar(ctx: lightbulb.Context) -> None:
+    target = ctx.get_guild().get_member(ctx.options.target or ctx.user)
+    if not target:
+        await ctx.respond("That user is not in the server.")
+        return
+    await ctx.respond(target.avatar_url or target.default_avatar_url)
+
+@utility.command
 @lightbulb.command("ping", description="The bot's ping")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
 async def ping(ctx: lightbulb.Context) -> None:
-    await ctx.respond(f"Pong! Latency: {holy.heartbeat_latency*1000:.2f}ms")
+    await ctx.respond(f"Pong! Latency: {utility.heartbeat_latency*1000:.2f}ms")
 
 def load(bot: lightbulb.BotApp) -> None:
     bot.add_plugin(utility)
