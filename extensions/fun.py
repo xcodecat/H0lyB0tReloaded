@@ -18,6 +18,5 @@ async def echo(ctx: lightbulb.Context) -> None:
 async def eightball(ctx: lightbulb.Context) -> None:
     await ctx.respond(random.choice(["Yes", "No", "Maybe", "I don't know"]))
 
-
 def load(bot: lightbulb.BotApp) -> None:
     bot.add_plugin(fun)

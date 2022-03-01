@@ -8,7 +8,6 @@ import dotenv
 
 dotenv.load_dotenv()
 
-
 holy = lightbulb.BotApp(
     os.environ["BOT_TOKEN"],
     prefix="h!",
