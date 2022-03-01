@@ -1,37 +1,39 @@
-import os
-import aiohttp
-
-import dotenv
 import hikari
 import lightbulb
 
+import os
+import random
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import dotenv
+
 dotenv.load_dotenv()
 
-bot = lightbulb.BotApp(
+
+holy = lightbulb.BotApp(
     os.environ["BOT_TOKEN"],
     prefix="h!",
     banner=None,
     intents=hikari.Intents.ALL,
-    default_enabled_guilds=(845711749944705035))
-
-@bot.command
-@lightbulb.command("ping", description="The bot's ping")
-@lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
-async def ping(ctx: lightbulb.Context) -> None:
-    await ctx.respond(f"Pong! Latency: {bot.heartbeat_latency*1000:.2f}ms")
-
-@bot.command()
-@lightbulb.option("text", "Text to repeat")
-@lightbulb.command("echo", "Repeats the user's input")
-@lightbulb.implements(lightbulb.SlashCommand, lightbulb.PrefixCommand)
-async def echo(ctx: lightbulb.Context) -> None:
-    await ctx.respond(ctx.options.text)
+    default_enabled_guilds=(845711749944705035)
+    )
 
 if __name__ == "__main__":
     if os.name != "nt":
         import uvloop
         uvloop.install()
 
+async def change_presence():
+    number = random.choice([1, 2, 3])
+    if number == 1:
+        await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="https://dsc.gg/holybutcrazy", type=hikari.ActivityType.LISTENING))
+    if number == 2:
+        await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="Cheetah's Cat#4171 beim Programmieren zu", type=hikari.ActivityType.WATCHING))
 
-    bot.load_extensions_from("./extensions/", must_exist=True)
-    bot.run()
+if __name__ == "__main__":
+  scheduler = AsyncIOScheduler()
+  scheduler.add_job(change_presence, "interval", seconds=30)
+  scheduler.start()
+
+
+holy.load_extensions_from("./extensions/", must_exist=True)
+holy.run()
