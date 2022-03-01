@@ -33,6 +33,5 @@ if __name__ == "__main__":
   scheduler.add_job(change_presence, "interval", seconds=30)
   scheduler.start()
 
-
 holy.load_extensions_from("./extensions/", must_exist=True)
 holy.run()
