@@ -7,7 +7,7 @@ fun = lightbulb.Plugin("Fun")
 @fun.command()
 @lightbulb.option("text", "Text to repeat")
 @lightbulb.command("echo", "Repeats the user's input")
-@lightbulb.implements(lightbulb.SlashCommand, lightbulb.PrefixCommand)
+@lightbulb.implements(lightbulb.SlashCommand)
 async def echo(ctx: lightbulb.Context) -> None:
     await ctx.respond(ctx.options.text)
 

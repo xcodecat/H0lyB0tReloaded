@@ -11,9 +11,6 @@ utility = lightbulb.Plugin("Utility")
 @lightbulb.implements(lightbulb.PrefixCommand, lightbulb.SlashCommand)
 async def userinfo(ctx: lightbulb.Context) -> None:
     target = ctx.get_guild().get_member(ctx.options.target or ctx.user)
-    if not target:
-        await ctx.respond("That user is not in the server.")
-        return
     created_at = int(target.created_at.timestamp())
     joined_at = int(target.joined_at.timestamp())
     roles = (await target.fetch_roles())[1:]

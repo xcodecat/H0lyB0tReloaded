@@ -26,7 +26,7 @@ async def change_presence():
     if number == 1:
         await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="Cheetah#7653", type=hikari.ActivityType.LISTENING))
     if number == 2:
-        await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="Cheetah's Cat#4171 beim Programmieren zu", type=hikari.ActivityType.WATCHING))
+        await holy.update_presence(status=hikari.Status.ONLINE, activity=hikari.Activity(name="Cheetah's Cat#4171", type=hikari.ActivityType.LISTENING))
 
 if __name__ == "__main__":
   scheduler = AsyncIOScheduler()
